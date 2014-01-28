@@ -1,5 +1,5 @@
 /*
- * {%= name %}
+ * grunt-travis-timestamp
  * {%= homepage %}
  *
  * Copyright (c) {%= grunt.template.today('yyyy') %} {%= author_name %}
@@ -29,7 +29,7 @@ module.exports = function(grunt) {
     },
 
     // Configuration to be run (and then tested).
-    {%= short_name %}: {
+    timestamp: {
       default_options: {
         options: {
         },
@@ -65,7 +65,7 @@ module.exports = function(grunt) {
 
   // Whenever the "test" task is run, first clean the "tmp" dir, then run this
   // plugin's task(s), then test the result.
-  grunt.registerTask('test', ['clean', '{%= short_name %}', 'nodeunit']);
+  grunt.registerTask('test', ['clean', 'timestamp', 'nodeunit']);
 
   // By default, lint and run all tests.
   grunt.registerTask('default', ['jshint', 'test']);
