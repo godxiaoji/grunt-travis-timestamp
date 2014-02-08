@@ -1,7 +1,7 @@
 {
   "name": "grunt-travis-timestamp",
   "description": "Change src timestamp.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "homepage": "https://github.com/godxiaoji/grunt-travis-timestamp",
   "author": {
     "name": "Travis",

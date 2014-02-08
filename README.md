@@ -25,17 +25,24 @@ In your project's Gruntfile, add a section named `timestamp` to the data object 
 ```js
 grunt.initConfig({
   timestamp: {
-    options: {
-      v: 'ver'
-    },
-    your_target: {
-      'index.html': ['a.js', 'src/b.js']
-    },
-  },
+	your_target: {
+      options: {
+	    paths: ['a.js', 'src/b.js'],
+        v: 'ver'
+      },
+      src: ['index.html']
+	}
+  }
 });
 ```
 
 ### Options
+
+#### options.paths
+Type: `Array`
+Default value: `[]`
+
+The links would be add the timerstamp.
 
 #### options.verKey
 Type: `String`

@@ -12,44 +12,46 @@ module.exports = function(grunt) {
 
     // Please see the Grunt documentation for more information regarding task
     // creation: http://gruntjs.com/creating-tasks
+    var now = +new Date();
 
     grunt.registerMultiTask('timestamp', 'Change src timestamp.', function() {
         // Merge task-specific and/or target-specific options with these defaults.
         var options = this.options({
+            paths: [],
             verKey: 'v'
         });
-        
-        var now = +new Date();
+
+        // Create regular array by paths.
+        var paths = Object.prototype.toString.call(options.paths) === '[object Array]' ? options.paths : [options.paths];
+        var regs = paths.filter(function(value) {
+            return value && typeof value === 'string' ? true : false;
+        }).map(function(value) {
+            //return new RegExp(('(' + value + ')(\\?' + options.verKey + '=[\\d]*|)'), 'g');
+            return new RegExp(('(' + value + ')([^\"\']*)'), 'g');
+        });
 
         // Iterate over all specified file groups.
-        this.files.forEach(function(f) {
-            // Concat specified files.
-            var regs = f.orig.src.filter(function(value) {
-                return value && typeof value === 'string' ? true : false;
-            }).map(function(value) {
-                return new RegExp(('(' + value + ')(\\?' + options.verKey + '=[\\d]*|)'), 'g');
-            });
-
-            if (!grunt.file.exists(f.dest)) {
-                grunt.log.warn('Source file "' + f.dest + '" not found.');
+        this.filesSrc.forEach(function(src) {
+            if (!grunt.file.exists(src)) {
+                grunt.log.warn('Source file "' + src + '" not found.');
                 return;
             }
 
             // Read the content.
-            var src = grunt.file.read(f.dest);
+            var content = grunt.file.read(src);
 
             // Change the timestamp.
             for(var i = 0; i < regs.length; i++) {
-                src = src.replace(regs[i], function(all, a, b) {
+                content = content.replace(regs[i], function(all, a, b) {
                     return a + '?' + options.verKey + '=' + now;
                 });
             }
 
             // Write the destination file.
-            grunt.file.write(f.dest, src);
+            grunt.file.write(src, content);
 
             // Print a success message.
-            grunt.log.writeln('File "' + f.dest + '" modified.');
+            grunt.log.writeln('File "' + src + '" modified.');
         });
     });
 

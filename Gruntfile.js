@@ -1,9 +1,9 @@
 /*
  * grunt-travis-timestamp
- * {%= homepage %}
+ * http://travisup.com/
  *
- * Copyright (c) {%= grunt.template.today('yyyy') %} {%= author_name %}
- * Licensed under the {%= licenses.join(', ') %} license{%= licenses.length === 1 ? '' : 's' %}.
+ * Copyright (c) 2014 Travis
+ * Licensed under the MIT license.
  */
 
 'use strict';
